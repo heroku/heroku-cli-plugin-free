@@ -1,7 +1,7 @@
 heroku-cli-free
 ===============
 
-A heroku cli plugin to find your free dynos and data
+A heroku cli plugin to find your apps using free dynos and data
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/heroku-cli-free.svg)](https://npmjs.org/package/heroku-cli-free)

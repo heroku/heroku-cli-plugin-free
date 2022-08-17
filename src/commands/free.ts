@@ -14,13 +14,7 @@ type Entry = {
 }
 
 export default class FreeCommand extends Command {
-  static description = 'describe the command here'
-
-  static examples = [
-    `$ oclif-example hello
-hello world from ./src/hello.ts!
-`,
-  ]
+  static description = 'find your apps using free dynos and data'
 
   static flags = {
     help: flags.help({char: 'h'}),
