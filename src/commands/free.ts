@@ -4,8 +4,8 @@ import {cli} from 'cli-ux'
 
 interface FreeInfo {
   dyno: boolean;
-  postgresql: boolean;
-  redis: boolean;
+  postgresql: Array<string>;
+  redis: Array<string>;
 }
 
 type Entry = {
@@ -29,8 +29,8 @@ export default class FreeCommand extends Command {
         name: app.name,
         free: {
           dyno: true,
-          postgresql: false,
-          redis: false,
+          postgresql: [],
+          redis: [],
         },
       } as Entry
     })
@@ -41,15 +41,15 @@ export default class FreeCommand extends Command {
     const response = await this.heroku.get<Array<Heroku.AddOn>>('/addons?slug%5B%5D=heroku-postgresql&slug%5B%5D=heroku-redis', {headers})
     const addons = response.body
     return addons.filter(addon => {
-      return addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(dev|hobby-dev|test)/.exec(addon.plan.name) : false
+      return addon.app && addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(dev|hobby-dev|test)/.exec(addon.plan.name) : false
     }).map(addon => {
       return {
         name: addon.app!.name,
         free: {
           dyno: false,
           // filtered for this above
-          postgresql: addon.addon_service!.name === 'heroku-postgresql',
-          redis: addon.addon_service!.name === 'heroku-redis',
+          postgresql: addon.addon_service!.name === 'heroku-postgresql' ? [addon.name] : [],
+          redis: addon.addon_service!.name === 'heroku-redis' ? [addon.name] : [],
         },
       } as Entry
     })
@@ -68,8 +68,8 @@ export default class FreeCommand extends Command {
       let result = data.get(entry.name)
       if (result) {
         if (entry.free.dyno) result.free.dyno = true
-        if (entry.free.postgresql) result.free.postgresql = true
-        if (entry.free.redis) result.free.redis = true
+        if (entry.free.postgresql.length > 0) result.free.postgresql.push(entry.free.postgresql[0])
+        if (entry.free.redis.length > 0) result.free.redis.push(entry.free.redis[0])
       } else {
         result = entry
       }
@@ -88,10 +88,10 @@ export default class FreeCommand extends Command {
         get: row => row.free.dyno,
       },
       postgresql: {
-        get: row => row.free.postgresql,
+        get: row => row.free.postgresql.length > 0 ? row.free.postgresql : false,
       },
       redis: {
-        get: row => row.free.redis,
+        get: row => row.free.redis.length > 0 ? row.free.redis : false,
       },
     })
   }
