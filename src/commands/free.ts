@@ -1,6 +1,10 @@
 import {Command, flags} from '@heroku-cli/command'
 import * as Heroku from '@heroku-cli/schema'
+import color from '@heroku-cli/color'
 import {cli} from 'cli-ux'
+
+const supports = require('supports-hyperlinks')
+const hyperlinker = require('hyperlinker')
 
 interface FreeInfo {
   dyno: boolean;
@@ -82,16 +86,17 @@ export default class FreeCommand extends Command {
     cli.styledHeader('Apps with Free Dynos & Data')
     cli.table([...data.values()], {
       name: {
-        get: row => row.name,
+        minWidth: 7,
+        get: row => supports.stdout ? hyperlinker(row.name, `https://dashboard.heroku.com/apps/${row.name}/resources`) : row.name,
       },
       dyno: {
-        get: row => row.free.dyno,
+        get: row => row.free.dyno ? color.red('true') : 'none',
       },
       postgresql: {
-        get: row => row.free.postgresql.length > 0 ? row.free.postgresql : false,
+        get: row => row.free.postgresql.length > 0 ? color.red(row.free.postgresql.join(',')) : 'none',
       },
       redis: {
-        get: row => row.free.redis.length > 0 ? row.free.redis : false,
+        get: row => row.free.redis.length > 0 ? color.red(row.free.redis.join(',')) : 'none',
       },
     })
   }
