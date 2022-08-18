@@ -25,10 +25,19 @@ export default class FreeCommand extends Command {
     help: flags.help({char: 'h'}),
   }
 
-  async freeDynos(): Promise<Array<Entry>> {
+  async getApps(): Promise<Array<Heroku.App>> {
     const headers = {Accept: 'application/vnd.heroku+json; version=3.process-tier'}
     const response = await this.heroku.get<Array<Heroku.App>>('/apps', {headers})
-    const apps = response.body
+    return response.body
+  }
+
+  async getAddons(): Promise<Array<Heroku.AddOn>> {
+    const headers = {Accept: 'application/vnd.heroku+json; version=3.heroku-addons-filter'}
+    const response = await this.heroku.get<Array<Heroku.AddOn>>('/addons?slug%5B%5D=heroku-postgresql&slug%5B%5D=heroku-redis', {headers})
+    return response.body
+  }
+
+  async freeDynos(apps: Array<Heroku.App>): Promise<Array<Entry>> {
     return apps.filter(app => app.process_tier === 'free').map(app => {
       return {
         name: app.name,
@@ -42,11 +51,7 @@ export default class FreeCommand extends Command {
     })
   }
 
-  async freeData(): Promise<Array<Entry>> {
-    const apps = (await this.heroku.get<Array<Heroku.App>>('/apps')).body
-    const headers = {Accept: 'application/vnd.heroku+json; version=3.heroku-addons-filter'}
-    const response = await this.heroku.get<Array<Heroku.AddOn>>('/addons?slug%5B%5D=heroku-postgresql&slug%5B%5D=heroku-redis', {headers})
-    const addons = response.body
+  async freeData(addons: Array<Heroku.AddOn>, apps: Array<Heroku.App>): Promise<Array<Entry>> {
     return addons.filter(addon => {
       return addon.app && addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(dev|hobby-dev|test)/.exec(addon.plan.name) : false
     }).map(addon => {
@@ -81,8 +86,10 @@ export default class FreeCommand extends Command {
     // const {flags} = this.parse(FreeCommand)
     cli.action.start('Fetching data')
 
-    const freeDynos = await this.freeDynos()
-    const freeData = await this.freeData()
+    const apps = await this.getApps()
+    const addons = await this.getAddons()
+    const freeDynos = await this.freeDynos(apps)
+    const freeData = await this.freeData(addons, apps)
 
     // aggregate data
     const data = new Map<string, Entry>()
