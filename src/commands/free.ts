@@ -14,6 +14,7 @@ interface FreeInfo {
 
 type Entry = {
   name: string;
+  team?: string;
   free: FreeInfo;
 }
 
@@ -31,6 +32,7 @@ export default class FreeCommand extends Command {
     return apps.filter(app => app.process_tier === 'free').map(app => {
       return {
         name: app.name,
+        team: app.team ? app.team.name : undefined,
         free: {
           dyno: true,
           postgresql: [],
@@ -41,6 +43,7 @@ export default class FreeCommand extends Command {
   }
 
   async freeData(): Promise<Array<Entry>> {
+    const apps = (await this.heroku.get<Array<Heroku.App>>('/apps')).body
     const headers = {Accept: 'application/vnd.heroku+json; version=3.heroku-addons-filter'}
     const response = await this.heroku.get<Array<Heroku.AddOn>>('/addons?slug%5B%5D=heroku-postgresql&slug%5B%5D=heroku-redis', {headers})
     const addons = response.body
@@ -49,6 +52,21 @@ export default class FreeCommand extends Command {
     }).map(addon => {
       return {
         name: addon.app!.name,
+        team: (function (apps: Array<Heroku.App>, name: string): string | undefined {
+          const app = apps.find(app => app.name === name)
+
+          if (app) {
+            if (app.organization) {
+              return app.organization.name
+            }
+
+            if (app.team) {
+              return app.team.name
+            }
+          }
+
+          return undefined
+        })(apps, addon.app!.name!),
         free: {
           dyno: false,
           // filtered for this above
@@ -88,6 +106,15 @@ export default class FreeCommand extends Command {
       name: {
         minWidth: 7,
         get: row => supports.stdout ? hyperlinker(row.name, `https://dashboard.heroku.com/apps/${row.name}/resources`) : row.name,
+      },
+      team: {
+        get: row => {
+          if (row.team) {
+            return supports.stdout ? hyperlinker(row.team, `https://dashboard.heroku.com/teams/${row.team}/apps`) : row.team
+          }
+
+          return 'none'
+        },
       },
       dyno: {
         get: row => row.free.dyno ? color.red('true') : 'none',
