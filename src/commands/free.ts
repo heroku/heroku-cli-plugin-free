@@ -37,8 +37,23 @@ export default class FreeCommand extends Command {
     return response.body
   }
 
+  async getAppFormation(app: string): Promise<Array<Heroku.Formation>> {
+    const response = await this.heroku.get<Array<Heroku.Formation>>(`/apps/${app}/formation`)
+    return response.body
+  }
+
   async freeDynos(apps: Array<Heroku.App>): Promise<Array<Entry>> {
-    return apps.filter(app => app.process_tier === 'free').map(app => {
+    const freeApps = apps.filter(app => app.process_tier === 'free')
+    const shellApps = await Promise.all(freeApps.map(async app => {
+      if (app.name) {
+        const formations = await this.getAppFormation(app.name)
+        return formations.length > 0
+      }
+
+      return false
+    }))
+
+    return freeApps.filter((_, index) => shellApps[index]).map(app => {
       return {
         name: app.name,
         team: app.team ? app.team.name : undefined,
