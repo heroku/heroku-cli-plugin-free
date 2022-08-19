@@ -25,10 +25,18 @@ export default class FreeCommand extends Command {
     '$ heroku free',
     '$ heroku free --team=none',
     '$ heroku free --team=keeprubyweird',
+    '$ heroku free --csv',
+    "$ heroku free --filter='dyno=true'",
+    "$ heroku free --columns='name,dyno'",
+    "$ heroku free --sort='team,name'",
   ]
 
   static flags = {
-    team: flags.team(),
+    team: flags.team({description: "team to use. 'none' will return all personal apps"}),
+    columns: flags.string({description: 'select columns to display'}),
+    csv: flags.boolean({description: 'return table as a csv'}),
+    filter: flags.string({description: 'filter table where this condition is true'}),
+    sort: flags.string({description: 'sort table by these columns'}),
   }
 
   async getApps(): Promise<Array<Heroku.App>> {
@@ -163,6 +171,6 @@ export default class FreeCommand extends Command {
       redis: {
         get: row => row.free.redis.length > 0 ? color.red(row.free.redis.join(',')) : 'none',
       },
-    })
+    }, {columns: flags.columns, csv: flags.csv, filter: flags.filter, sort: flags.sort})
   }
 }
