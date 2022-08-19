@@ -15,38 +15,39 @@ A heroku cli plugin to find your apps using free dynos and data
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @heroku-cl/plugin-free
-$ oclif-example COMMAND
-running command...
-$ oclif-example (-v|--version|version)
-heroku-cli-plugin-free/0.0.0 linux-x64 node-v14.17.3
-$ oclif-example --help [COMMAND]
-USAGE
-  $ oclif-example COMMAND
-...
+$ heroku plugins:install free
+$ heroku free
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`oclif-example hello [FILE]`](#oclif-example-hello-file)
+* [`heroku free`](#heroku-free)
 
-## `oclif-example hello [FILE]`
+## `heroku free`
 
-describe the command here
+find your apps using free dynos and data
 
 ```
 USAGE
-  $ oclif-example hello [FILE]
+  $ heroku free
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -t, --team=team    team to use. 'none' will return all personal apps
+  --columns=columns  select columns to display
+  --csv              return table as a csv
+  --filter=filter    filter table where this condition is true
+  --sort=sort        sort table by these columns
 
-EXAMPLE
-  $ oclif-example hello
-  hello world from ./src/hello.ts!
+EXAMPLES
+  $ heroku free
+  $ heroku free --team=none
+  $ heroku free --team=keeprubyweird
+  $ heroku free --csv
+  $ heroku free --filter='dyno=true'
+  $ heroku free --columns='name,dyno'
+  $ heroku free --sort='team,name'
+
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/main/src/commands/free.ts)_
 <!-- commandsstop -->
