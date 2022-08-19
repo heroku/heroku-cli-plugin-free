@@ -21,8 +21,14 @@ type Entry = {
 export default class FreeCommand extends Command {
   static description = 'find your apps using free dynos and data'
 
+  static examples = [
+    '$ heroku free',
+    '$ heroku free --team=none',
+    '$ heroku free --team=keeprubyweird',
+  ]
+
   static flags = {
-    help: flags.help({char: 'h'}),
+    team: flags.team(),
   }
 
   async getApps(): Promise<Array<Heroku.App>> {
@@ -98,13 +104,23 @@ export default class FreeCommand extends Command {
   }
 
   async run() {
-    // const {flags} = this.parse(FreeCommand)
+    const {flags} = this.parse(FreeCommand)
     cli.action.start('Fetching data')
 
     const apps = await this.getApps()
     const addons = await this.getAddons()
-    const freeDynos = await this.freeDynos(apps)
-    const freeData = await this.freeData(addons, apps)
+    let freeDynos = await this.freeDynos(apps)
+    let freeData = await this.freeData(addons, apps)
+    if (flags.team) {
+      if (flags.team === 'none') {
+        freeDynos = freeDynos.filter(entry => entry.team === undefined)
+        freeData = freeData.filter(entry => entry.team === undefined)
+      } else {
+        // teams can't have free dynos
+        freeDynos = freeDynos.filter(entry => entry.team === flags.team)
+        freeData = freeData.filter(entry => entry.team === flags.team)
+      }
+    }
 
     // aggregate data
     const data = new Map<string, Entry>()
