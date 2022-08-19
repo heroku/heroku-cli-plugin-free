@@ -1,12 +1,12 @@
-heroku-cli-free
+heroku-cli-plugin-free
 ===============
 
 A heroku cli plugin to find your apps using free dynos and data
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/heroku-cli-free.svg)](https://npmjs.org/package/heroku-cli-free)
-[![Downloads/week](https://img.shields.io/npm/dw/heroku-cli-free.svg)](https://npmjs.org/package/heroku-cli-free)
-[![License](https://img.shields.io/npm/l/heroku-cli-free.svg)](https://github.com/hone/heroku-cli-free/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/heroku-cli-plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
+[![Downloads/week](https://img.shields.io/npm/dw/heroku-cli-plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
+[![License](https://img.shields.io/npm/l/heroku-cli-plugin-free.svg)](https://github.com/heroku/heroku-cli-plugin-free/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -15,11 +15,11 @@ A heroku cli plugin to find your apps using free dynos and data
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g heroku-cli-free
+$ npm install -g @heroku-cl/plugin-free
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-heroku-cli-free/0.0.0 linux-x64 node-v14.17.3
+heroku-cli-plugin-free/0.0.0 linux-x64 node-v14.17.3
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -48,5 +48,5 @@ EXAMPLE
   hello world from ./src/hello.ts!
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/hone/heroku-cli-free/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/hello.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/v0.0.0/src/commands/hello.ts)_
 <!-- commandsstop -->

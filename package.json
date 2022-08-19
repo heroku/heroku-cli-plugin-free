@@ -1,9 +1,9 @@
 {
-  "name": "heroku-cli-free",
+  "name": "@heroku-cli/plugin-free",
   "description": "A heroku cli plugin to find your free dynos and data",
   "version": "0.0.0",
   "author": "Terence Lee @hone",
-  "bugs": "https://github.com/hone/heroku-cli-free/issues",
+  "bugs": "https://github.com/heroku/heroku-cli-plugin-free/issues",
   "dependencies": {
     "@heroku-cli/color": "^1.1.14",
     "@heroku-cli/command": "^8.5.0",
@@ -38,7 +38,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/hone/heroku-cli-free",
+  "homepage": "https://github.com/heroku/heroku-cli-plugin-free",
   "keywords": [
     "oclif-plugin"
   ],
@@ -50,7 +50,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "hone/heroku-cli-free",
+  "repository": "heroku/heroku-cli-plugin-free",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
