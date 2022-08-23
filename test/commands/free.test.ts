@@ -1,10 +1,10 @@
 import {expect, test} from '@oclif/test'
 
-describe('free', () => {
+describe('apps:free', () => {
   test
   .stdout()
-  .command(['free'])
-  .it('runs free', ctx => {
+  .command(['apps:free'])
+  .it('runs apps:free', ctx => {
     expect(ctx.stdout).to.contain('Apps with Free Dynos & Data')
   })
 })

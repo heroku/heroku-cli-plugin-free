@@ -16,20 +16,20 @@ A heroku cli plugin to find your apps using free dynos and data
 <!-- usage -->
 ```sh-session
 $ heroku plugins:install free
-$ heroku free
+$ heroku apps:free
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`heroku free`](#heroku-free)
+* [`heroku apps:free`](#heroku-appsfree)
 
-## `heroku free`
+## `heroku apps:free`
 
 find your apps using free dynos and data
 
 ```
 USAGE
-  $ heroku free
+  $ heroku apps:free
 
 OPTIONS
   -t, --team=team    team to use. 'none' will return all personal apps
@@ -39,15 +39,15 @@ OPTIONS
   --sort=sort        sort table by these columns
 
 EXAMPLES
-  $ heroku free
-  $ heroku free --team=none
-  $ heroku free --team=keeprubyweird
-  $ heroku free --csv
-  $ heroku free --filter='dyno=true'
-  $ heroku free --columns='name,dyno'
-  $ heroku free --sort='team,name'
+  $ heroku apps:free
+  $ heroku apps:free --team=none
+  $ heroku apps:free --team=keeprubyweird
+  $ heroku apps:free --csv
+  $ heroku apps:free --filter='dyno=true'
+  $ heroku apps:free --columns='name,dyno'
+  $ heroku apps:free --sort='team,name'
 
 ```
 
-_See code: [src/commands/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/main/src/commands/free.ts)_
+_See code: [src/commands/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/main/src/commands/apps/free.ts)_
 <!-- commandsstop -->

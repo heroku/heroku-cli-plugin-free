@@ -22,13 +22,13 @@ export default class FreeCommand extends Command {
   static description = 'find your apps using free dynos and data'
 
   static examples = [
-    '$ heroku free',
-    '$ heroku free --team=none',
-    '$ heroku free --team=keeprubyweird',
-    '$ heroku free --csv',
-    "$ heroku free --filter='dyno=true'",
-    "$ heroku free --columns='name,dyno'",
-    "$ heroku free --sort='team,name'",
+    '$ heroku apps:free',
+    '$ heroku apps:free --team=none',
+    '$ heroku apps:free --team=keeprubyweird',
+    '$ heroku apps:free --csv',
+    "$ heroku apps:free --filter='dyno=true'",
+    "$ heroku apps:free --columns='name,dyno'",
+    "$ heroku apps:free --sort='team,name'",
   ]
 
   static flags = {
