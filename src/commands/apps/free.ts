@@ -51,23 +51,8 @@ export default class FreeCommand extends Command {
     return response.body
   }
 
-  async getAppFormation(app: string): Promise<Array<Heroku.Formation>> {
-    const response = await this.heroku.get<Array<Heroku.Formation>>(`/apps/${app}/formation`)
-    return response.body
-  }
-
-  async freeDynos(apps: Array<Heroku.App>): Promise<Array<Entry>> {
-    const freeApps = apps.filter(app => app.process_tier === 'free')
-    const shellApps = await Promise.all(freeApps.map(async app => {
-      if (app.name) {
-        const formations = await this.getAppFormation(app.name)
-        return formations.length > 0
-      }
-
-      return false
-    }))
-
-    return freeApps.filter((_, index) => shellApps[index]).map(app => {
+  freeDynos(apps: Array<Heroku.App>): Array<Entry> {
+    return apps.filter(app => app.process_tier === 'free' && app.slug_size && app.slug_size > 0).map(app => {
       return {
         name: app.name,
         team: app.team ? app.team.name : undefined,
@@ -80,7 +65,7 @@ export default class FreeCommand extends Command {
     })
   }
 
-  async freeData(addons: Array<Heroku.AddOn>, apps: Array<Heroku.App>): Promise<Array<Entry>> {
+  freeData(addons: Array<Heroku.AddOn>, apps: Array<Heroku.App>): Array<Entry> {
     return addons.filter(addon => {
       return addon.app && addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(dev|hobby-dev|test)/.exec(addon.plan.name) : false
     }).map(addon => {
@@ -117,8 +102,8 @@ export default class FreeCommand extends Command {
 
     const apps = await this.getApps()
     const addons = await this.getAddons()
-    let freeDynos = await this.freeDynos(apps)
-    let freeData = await this.freeData(addons, apps)
+    let freeDynos = this.freeDynos(apps)
+    let freeData = this.freeData(addons, apps)
     if (flags.team) {
       if (flags.team === 'none') {
         freeDynos = freeDynos.filter(entry => entry.team === undefined)
