@@ -19,7 +19,7 @@ $ npm install -g @heroku-cli/plugin-free
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-@heroku-cli/plugin-free/0.1.0 darwin-x64 node-v16.13.2
+@heroku-cli/plugin-free/0.1.1 darwin-x64 node-v16.13.2
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -55,5 +55,5 @@ EXAMPLES
   $ heroku apps:free --sort='team,name'
 ```
 
-_See code: [src/commands/apps/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/v0.1.0/src/commands/apps/free.ts)_
+_See code: [src/commands/apps/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/v0.1.1/src/commands/apps/free.ts)_
 <!-- commandsstop -->
