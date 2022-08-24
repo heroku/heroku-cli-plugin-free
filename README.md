@@ -15,21 +15,28 @@ A heroku cli plugin to find your apps using free dynos and data
 # Usage
 <!-- usage -->
 ```sh-session
-$ heroku plugins:install free
-$ heroku apps:free
+$ npm install -g @heroku-cli/plugin-free
+$ oclif-example COMMAND
+running command...
+$ oclif-example (-v|--version|version)
+@heroku-cli/plugin-free/0.1.0 darwin-x64 node-v16.13.2
+$ oclif-example --help [COMMAND]
+USAGE
+  $ oclif-example COMMAND
+...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`heroku apps:free`](#heroku-appsfree)
+* [`oclif-example apps:free`](#oclif-example-appsfree)
 
-## `heroku apps:free`
+## `oclif-example apps:free`
 
 find your apps using free dynos and data
 
 ```
 USAGE
-  $ heroku apps:free
+  $ oclif-example apps:free
 
 OPTIONS
   -t, --team=team    team to use. 'none' will return all personal apps
@@ -46,8 +53,7 @@ EXAMPLES
   $ heroku apps:free --filter='dyno=true'
   $ heroku apps:free --columns='name,dyno'
   $ heroku apps:free --sort='team,name'
-
 ```
 
-_See code: [src/commands/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/main/src/commands/apps/free.ts)_
+_See code: [src/commands/apps/free.ts](https://github.com/heroku/heroku-cli-plugin-free/blob/v0.1.0/src/commands/apps/free.ts)_
 <!-- commandsstop -->
