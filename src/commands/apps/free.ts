@@ -67,7 +67,7 @@ export default class FreeCommand extends Command {
 
   freeData(addons: Array<Heroku.AddOn>, apps: Array<Heroku.App>): Array<Entry> {
     return addons.filter(addon => {
-      return addon.app && addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(basic|dev|hobby-basic|hobby-dev|test)/.exec(addon.plan.name) : false
+      return addon.app && addon.addon_service && addon.plan && addon.plan.name !== undefined ? /heroku-(postgresql|redis):(basic|dev|hobby-dev|test)/.exec(addon.plan.name) : false
     }).map(addon => {
       return {
         name: addon.app!.name,
