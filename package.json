@@ -1,7 +1,7 @@
 {
   "name": "@heroku-cli/plugin-free",
   "description": "A heroku cli plugin to find your free dynos and data",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Terence Lee @hone",
   "bugs": "https://github.com/heroku/heroku-cli-plugin-free/issues",
   "dependencies": {
