@@ -2,9 +2,9 @@
 ===============
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/heroku-cli-plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
-[![Downloads/week](https://img.shields.io/npm/dw/heroku-cli-plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
-[![License](https://img.shields.io/npm/l/heroku-cli-plugin-free.svg)](https://github.com/heroku/heroku-cli-plugin-free/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@heroku-cli/plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
+[![Downloads/week](https://img.shields.io/npm/dw/@heroku-cli/plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
+[![License](https://img.shields.io/npm/l/@heroku-cli/plugin-free.svg)](https://github.com/heroku/heroku-cli-plugin-free/blob/master/package.json)
 
 The `apps:free` Heroku CLI plugin shows the apps using free dynos or free data (PostgreSQL & Redis).
 
