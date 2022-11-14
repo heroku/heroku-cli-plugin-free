@@ -13,7 +13,7 @@ The `apps:free` Heroku CLI plugin shows the apps using free dynos or free data (
 To get started, install the plugin from NPM.
 
 ```
-$ heroku plugins:install @heroku-cli/plugin-free
+heroku plugins:install @heroku-cli/plugin-free
 ```
 
 With the plugin installed, you can run it without any arguments to fetch all apps across personal and any Heroku Team you’re a part of.
