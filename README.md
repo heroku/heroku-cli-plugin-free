@@ -1,5 +1,4 @@
-@heroku-cli/plugin-free
-===============
+# Heroku CLI Free Plugin
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@heroku-cli/plugin-free.svg)](https://npmjs.org/package/@heroku-cli/plugin-free)
